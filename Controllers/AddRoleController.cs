@@ -1,7 +1,9 @@
 ﻿using CertStore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CertStore.Controllers
 {
@@ -9,7 +11,7 @@ namespace CertStore.Controllers
     [ApiController]
     public class AddRoleController : ControllerBase
     {
-         private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
@@ -35,7 +37,7 @@ namespace CertStore.Controllers
 
             return BadRequest("Role already exists");
         }
-         [HttpPost("assign-role")]
+        [HttpPost("assign-role")]
         public async Task<IActionResult> AssignRole([FromBody] UserRole model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
@@ -51,6 +53,15 @@ namespace CertStore.Controllers
             }
 
             return BadRequest(result.Errors);
+        }
+        [Authorize]
+        [HttpGet("get-id")]
+        public IActionResult GetProfile()
+        {
+            // Retrieve the user ID from the ClaimsPrincipal
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            return Ok(new { UserId = userId });
         }
     }
 }
