@@ -1,4 +1,4 @@
-﻿using CertStore.Models;
+using CertStore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +13,9 @@ namespace CertStore.Data
 
         public DbSet<Tests> Tests { get; set; }
         public DbSet<Candidate> Candidates { get; set; }
+        public DbSet<Certificate> Certificates { get; set; }
+        public DbSet<Exam> Exams { get; set; }
+        public DbSet<Topic> Topics { get; set; }
         
     }
 }
