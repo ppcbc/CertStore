@@ -2,6 +2,6 @@ namespace CertStore.Data.Enums;
 
 public enum Gender
 {
-    Female = 1,
+    Female = 1,//lo
     Male
 } 

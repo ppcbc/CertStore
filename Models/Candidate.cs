@@ -56,6 +56,6 @@ public class Candidate
     public string LandlinePhone { get; set; } = string.Empty;
     
     [Required]
-    public string MobileNumber { get; set; } = string.Empty; 
+    public string MobileNumber { get; set; } = string.Empty; //cv
     
 }
