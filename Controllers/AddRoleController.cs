@@ -19,6 +19,8 @@ namespace CertStore.Controllers
             _roleManager = roleManager;
             _configuration = configuration;
         }
+        
+        
         [HttpPost("add-role")]
         public async Task<IActionResult> AddRole([FromBody] string role)
         {
