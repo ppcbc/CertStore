@@ -5,7 +5,6 @@ namespace CertStore.Models;
 
 public class Candidate
 {
-    //keyy
     [Key]
     [Required]
     public int CandidateId { get; set; }
