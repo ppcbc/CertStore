@@ -12,7 +12,7 @@ namespace CertStore.Data
         }
 
         public DbSet<Tests> Tests { get; set; }
-        //candidates
+        //candidatess
         public DbSet<Candidate> Candidates { get; set; }
         
     }
