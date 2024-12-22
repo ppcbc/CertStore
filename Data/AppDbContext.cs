@@ -12,5 +12,6 @@ namespace CertStore.Data
         }
 
         public DbSet<Tests> Tests { get; set; }
+        public DbSet<Exam> Exams { get; set; }
     }
 }

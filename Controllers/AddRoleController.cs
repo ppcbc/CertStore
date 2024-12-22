@@ -54,6 +54,41 @@ namespace CertStore.Controllers
 
             return BadRequest(result.Errors);
         }
+        [HttpPost("remove-user-role")]
+        public async Task<IActionResult> RemoveUserRole([FromBody] UserRole model)
+        {
+            // Validate the input
+            if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Role))
+            {
+                return BadRequest(new { message = "User ID and Role cannot be empty." });
+            }
+
+            // Find the user
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found." });
+            }
+
+            // Check if the user is in the role
+            if (!await _userManager.IsInRoleAsync(user, model.Role))
+            {
+                return BadRequest(new { message = $"User is not in the role '{model.Role}'." });
+            }
+
+            // Remove the role
+            var result = await _userManager.RemoveFromRoleAsync(user, model.Role);
+            if (result.Succeeded)
+            {
+                return Ok(new { message = $"Role '{model.Role}' removed from user successfully." });
+            }
+
+            // Handle errors
+            return BadRequest(result.Errors);
+        }
+
+
+
         [Authorize]
         [HttpGet("get-id")]
         public IActionResult GetProfile()
@@ -62,6 +97,15 @@ namespace CertStore.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             return Ok(new { UserId = userId });
+        }
+        [Authorize]
+        [HttpGet("get-role")]
+        public IActionResult GetRole()
+        {
+            // Retrieve the user ID from the ClaimsPrincipal
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+            return Ok(new { UserRole = userRole });
         }
     }
 }
