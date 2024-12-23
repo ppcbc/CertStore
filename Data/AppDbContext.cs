@@ -13,5 +13,18 @@ namespace CertStore.Data
 
         public DbSet<Tests> Tests { get; set; }
         public DbSet<Exam> Exams { get; set; }
+        public DbSet<ExamCategory> ExamCategories { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Exam>()
+               .HasOne(e => e.Category)
+               .WithMany(c => c.Exams)
+               .HasForeignKey(e => e.CategoryId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+        }
     }
 }

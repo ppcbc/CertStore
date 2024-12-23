@@ -1,22 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CertStore.Models
+namespace CertStore.DTOs
 {
-    public class Exam
+    public class ExamDto
     {
-        [Key]
-        public int ExamId { get; set; }
-
         [Required]
         public string ExamName { get; set; }
 
         [Required]
-        [ForeignKey("ExamCategory")]
         public int CategoryId { get; set; }
-
-        [NotMapped] // Prevent this from being validated or required
-        public ExamCategory Category { get; set; }
 
         public string QuestionText { get; set; } = string.Empty;
         public string QuestionPhotoLink { get; set; } = string.Empty;
