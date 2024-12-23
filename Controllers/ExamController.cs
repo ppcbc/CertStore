@@ -41,6 +41,7 @@ namespace CertStore.Controllers
             var exam = new Exam
             {
                 ExamName = examDto.ExamName,
+                Price = examDto.Price,
                 CategoryId = examDto.CategoryId,
                 QuestionText = examDto.QuestionText,
                 QuestionPhotoLink = examDto.QuestionPhotoLink,

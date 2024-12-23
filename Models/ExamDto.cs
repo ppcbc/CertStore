@@ -6,6 +6,7 @@ namespace CertStore.DTOs
     {
         [Required]
         public string ExamName { get; set; }
+        public decimal Price { get; set; }
 
         [Required]
         public int CategoryId { get; set; }
