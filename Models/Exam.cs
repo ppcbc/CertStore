@@ -11,6 +11,8 @@ namespace CertStore.Models
         [Required]
         public string ExamName { get; set; }
 
+        public  decimal Price { get; set; }
+
         [Required]
         [ForeignKey("ExamCategory")]
         public int CategoryId { get; set; }
