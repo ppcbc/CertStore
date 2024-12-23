@@ -33,10 +33,6 @@ namespace CertStore.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ExamName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsCorrect1")
                         .HasColumnType("bit");
 
@@ -64,9 +60,6 @@ namespace CertStore.Migrations
                     b.Property<string>("Option4")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("QuestionPhotoLink")
                         .IsRequired()

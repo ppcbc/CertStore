@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CertStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241223141348_after delete")]
-    partial class afterdelete
+    [Migration("20241223145222_fix new db")]
+    partial class fixnewdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,10 +35,6 @@ namespace CertStore.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ExamName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsCorrect1")
                         .HasColumnType("bit");
@@ -67,9 +63,6 @@ namespace CertStore.Migrations
                     b.Property<string>("Option4")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("QuestionPhotoLink")
                         .IsRequired()
