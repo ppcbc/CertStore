@@ -1,11 +1,18 @@
 ﻿using System.Collections;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CertStore.Models
 {
     public class ExamCategory
     {
-        public int Id { get; set; }
+        [Key]
+        public int CategoryId { get; set; }
+        
+        [Required]
+        [ForeignKey("FullCategory")]
+        public int FullId { get; set; }
         public string CategoryName { get; set; }
-        public ICollection<Exam> Exams { get; set; }
+        public  decimal Price { get; set; }
     }
 }

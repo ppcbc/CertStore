@@ -17,8 +17,6 @@ namespace CertStore.Models
         [ForeignKey("ExamCategory")]
         public int CategoryId { get; set; }
 
-        [NotMapped] // Prevent this from being validated or required
-        public ExamCategory Category { get; set; }
 
         public string QuestionText { get; set; } = string.Empty;
         public string QuestionPhotoLink { get; set; } = string.Empty;

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CertStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241222221443_add exam category")]
-    partial class addexamcategory
+    [Migration("20241223141348_after delete")]
+    partial class afterdelete
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,6 +68,9 @@ namespace CertStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("QuestionPhotoLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -78,26 +81,47 @@ namespace CertStore.Migrations
 
                     b.HasKey("ExamId");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Exams");
                 });
 
             modelBuilder.Entity("CertStore.Models.ExamCategory", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int>("FullId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("CategoryId");
 
                     b.ToTable("ExamCategories");
+                });
+
+            modelBuilder.Entity("CertStore.Models.FullCategory", b =>
+                {
+                    b.Property<int>("FullId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FullId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FullId");
+
+                    b.ToTable("FullCategories");
                 });
 
             modelBuilder.Entity("CertStore.Models.Tests", b =>
@@ -323,17 +347,6 @@ namespace CertStore.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CertStore.Models.Exam", b =>
-                {
-                    b.HasOne("CertStore.Models.ExamCategory", "Category")
-                        .WithMany("Exams")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -383,11 +396,6 @@ namespace CertStore.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CertStore.Models.ExamCategory", b =>
-                {
-                    b.Navigation("Exams");
                 });
 #pragma warning restore 612, 618
         }
