@@ -14,6 +14,10 @@ namespace CertStore.Data
         public DbSet<Tests> Tests { get; set; }
         public DbSet<Exam> Exams { get; set; }
         public DbSet<ExamCategory> ExamCategories { get; set; }
+        
+        public DbSet<UserDetails> UserDetails { get; set; }
+        
+        public DbSet<Candidate> Candidates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
