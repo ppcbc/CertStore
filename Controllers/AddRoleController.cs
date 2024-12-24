@@ -107,5 +107,28 @@ namespace CertStore.Controllers
 
             return Ok(new { UserRole = userRole });
         }
+        //[Authorize]
+        [HttpGet("get-role-by-email/{email}")]
+        public async Task<IActionResult> GetRoleByEmail(string email)
+        {
+            // Find the user by email
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found." });
+            }
+
+            // Retrieve user roles
+            var roles = await _userManager.GetRolesAsync(user);
+
+            if (roles == null || roles.Count == 0)
+            {
+                return Ok(new { Email = email, message = "User has no assigned roles." });
+            }
+
+            return Ok(new { Email = email, Roles = roles });
+        }
+
     }
 }
