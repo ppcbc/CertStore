@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CertStore.Data;
 using CertStore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CertStore.Controllers
 {
@@ -75,6 +76,7 @@ namespace CertStore.Controllers
 
         // POST: api/Exams
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Exam>> PostExam(Exam exam)
         {

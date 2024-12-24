@@ -49,6 +49,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
     options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
     options.AddPolicy("MarkerPolicy", policy => policy.RequireRole("Marker"));
+    options.AddPolicy("CandidatePolicy", policy => policy.RequireRole("Candidate"));
 });
 
 builder.Services.AddIdentityApiEndpoints<IdentityUser>(options =>
