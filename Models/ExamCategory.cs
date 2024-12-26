@@ -13,6 +13,7 @@ namespace CertStore.Models
         [ForeignKey("FullCategory")]
         public int FullId { get; set; }
         public string CategoryName { get; set; }
+        public  string CategoryDescription  { get; set; }
         public  decimal Price { get; set; }
     }
 }
