@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CertStore.Migrations
 {
     /// <inheritdoc />
-    public partial class fixnewdb : Migration
+    public partial class ff : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,6 +51,24 @@ namespace CertStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CertExams",
+                columns: table => new
+                {
+                    CertExamId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    ExamId = table.Column<int>(type: "int", nullable: false),
+                    TestTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TestDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CertExams", x => x.CertExamId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ExamCategories",
                 columns: table => new
                 {
@@ -58,7 +76,7 @@ namespace CertStore.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullId = table.Column<int>(type: "int", nullable: false),
                     CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    CategoryDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -94,26 +112,12 @@ namespace CertStore.Migrations
                 {
                     FullId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FullCategories", x => x.FullId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tests",
-                columns: table => new
-                {
-                    TestId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TestTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TestDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TestAuthor = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tests", x => x.TestId);
                 });
 
             migrationBuilder.CreateTable(
@@ -281,6 +285,9 @@ namespace CertStore.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CertExams");
+
+            migrationBuilder.DropTable(
                 name: "ExamCategories");
 
             migrationBuilder.DropTable(
@@ -288,9 +295,6 @@ namespace CertStore.Migrations
 
             migrationBuilder.DropTable(
                 name: "FullCategories");
-
-            migrationBuilder.DropTable(
-                name: "Tests");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

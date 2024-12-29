@@ -7,55 +7,52 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CertStore.Data;
 using CertStore.Models;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
-using Microsoft.AspNetCore.Authorization;
 
 namespace CertStore.Controllers
 {
-    [Authorize(Roles = "Admin, User")]
     [Route("api/[controller]")]
     [ApiController]
-    public class TestsController : ControllerBase
+    public class CertExamsController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public TestsController(AppDbContext context)
+        public CertExamsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Tests
+        // GET: api/CertExams
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tests>>> GetTests()
+        public async Task<ActionResult<IEnumerable<CertExam>>> GetCertExams()
         {
-            return await _context.Tests.ToListAsync();
+            return await _context.CertExams.ToListAsync();
         }
 
-        // GET: api/Tests/5
+        // GET: api/CertExams/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Tests>> GetTests(int id)
+        public async Task<ActionResult<CertExam>> GetCertExam(int id)
         {
-            var tests = await _context.Tests.FindAsync(id);
+            var certExam = await _context.CertExams.FindAsync(id);
 
-            if (tests == null)
+            if (certExam == null)
             {
                 return NotFound();
             }
 
-            return tests;
+            return certExam;
         }
 
-        // PUT: api/Tests/5
+        // PUT: api/CertExams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTests(int id, Tests tests)
+        public async Task<IActionResult> PutCertExam(int id, CertExam certExam)
         {
-            if (id != tests.TestId)
+            if (id != certExam.CertExamId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tests).State = EntityState.Modified;
+            _context.Entry(certExam).State = EntityState.Modified;
 
             try
             {
@@ -63,7 +60,7 @@ namespace CertStore.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TestsExists(id))
+                if (!CertExamExists(id))
                 {
                     return NotFound();
                 }
@@ -76,36 +73,36 @@ namespace CertStore.Controllers
             return NoContent();
         }
 
-        // POST: api/Tests
+        // POST: api/CertExams
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Tests>> PostTests(Tests tests)
+        public async Task<ActionResult<CertExam>> PostCertExam(CertExam certExam)
         {
-            _context.Tests.Add(tests);
+            _context.CertExams.Add(certExam);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTests", new { id = tests.TestId }, tests);
+            return CreatedAtAction("GetCertExam", new { id = certExam.CertExamId }, certExam);
         }
 
-        // DELETE: api/Tests/5
+        // DELETE: api/CertExams/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTests(int id)
+        public async Task<IActionResult> DeleteCertExam(int id)
         {
-            var tests = await _context.Tests.FindAsync(id);
-            if (tests == null)
+            var certExam = await _context.CertExams.FindAsync(id);
+            if (certExam == null)
             {
                 return NotFound();
             }
 
-            _context.Tests.Remove(tests);
+            _context.CertExams.Remove(certExam);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TestsExists(int id)
+        private bool CertExamExists(int id)
         {
-            return _context.Tests.Any(e => e.TestId == id);
+            return _context.CertExams.Any(e => e.CertExamId == id);
         }
     }
 }

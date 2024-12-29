@@ -22,6 +22,39 @@ namespace CertStore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CertStore.Models.CertExam", b =>
+                {
+                    b.Property<int>("CertExamId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CertExamId"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FullId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TestDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TestTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CertExamId");
+
+                    b.ToTable("CertExams");
+                });
+
             modelBuilder.Entity("CertStore.Models.Exam", b =>
                 {
                     b.Property<int>("ExamId")
@@ -93,9 +126,6 @@ namespace CertStore.Migrations
                     b.Property<int>("FullId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("CategoryId");
 
                     b.ToTable("ExamCategories");
@@ -120,31 +150,6 @@ namespace CertStore.Migrations
                     b.HasKey("FullId");
 
                     b.ToTable("FullCategories");
-                });
-
-            modelBuilder.Entity("CertStore.Models.Tests", b =>
-                {
-                    b.Property<int>("TestId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestId"));
-
-                    b.Property<string>("TestAuthor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TestDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TestTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TestId");
-
-                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
