@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CertStore.Data;
 using CertStore.Models;
@@ -25,14 +20,18 @@ namespace CertStore.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CertExam>>> GetCertExams()
         {
-            return await _context.CertExams.ToListAsync();
+            return await _context.CertExams
+                .Include(e => e.ExamQuestions) // Include related ExamQuestions
+                .ToListAsync();
         }
 
         // GET: api/CertExams/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CertExam>> GetCertExam(int id)
         {
-            var certExam = await _context.CertExams.FindAsync(id);
+            var certExam = await _context.CertExams
+                .Include(e => e.ExamQuestions) // Include related ExamQuestions
+                .FirstOrDefaultAsync(e => e.CertExamId == id);
 
             if (certExam == null)
             {
@@ -43,7 +42,6 @@ namespace CertStore.Controllers
         }
 
         // PUT: api/CertExams/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCertExam(int id, CertExam certExam)
         {
@@ -53,6 +51,18 @@ namespace CertStore.Controllers
             }
 
             _context.Entry(certExam).State = EntityState.Modified;
+
+            foreach (var question in certExam.ExamQuestions)
+            {
+                if (question.ItemKey == 0)
+                {
+                    _context.Entry(question).State = EntityState.Added;
+                }
+                else
+                {
+                    _context.Entry(question).State = EntityState.Modified;
+                }
+            }
 
             try
             {
@@ -74,27 +84,40 @@ namespace CertStore.Controllers
         }
 
         // POST: api/CertExams
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<CertExam>> PostCertExam(CertExam certExam)
-        {
-            _context.CertExams.Add(certExam);
-            await _context.SaveChangesAsync();
+     [HttpPost]
+public async Task<ActionResult<CertExam>> PostCertExam(CertExam certExam)
+{
+    // Add the CertExam
+    _context.CertExams.Add(certExam);
+    await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCertExam", new { id = certExam.CertExamId }, certExam);
-        }
+    // Set CertExamId for each ExamQuestion
+    foreach (var question in certExam.ExamQuestions)
+    {
+        question.CertExamId = certExam.CertExamId;
+    }
+
+    await _context.SaveChangesAsync();
+
+    return CreatedAtAction(nameof(GetCertExam), new { id = certExam.CertExamId }, certExam);
+}
 
         // DELETE: api/CertExams/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCertExam(int id)
         {
-            var certExam = await _context.CertExams.FindAsync(id);
+            var certExam = await _context.CertExams
+                .Include(e => e.ExamQuestions)
+                .FirstOrDefaultAsync(e => e.CertExamId == id);
+
             if (certExam == null)
             {
                 return NotFound();
             }
 
-            _context.CertExams.Remove(certExam);
+            //_context.ExamQuestions.RemoveRange(certExam.ExamQuestions); // Remove related ExamQuestions
+            _context.CertExams.Remove(certExam); // Remove CertExam
+
             await _context.SaveChangesAsync();
 
             return NoContent();

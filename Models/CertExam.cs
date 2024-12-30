@@ -29,18 +29,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CertStore.Models
 {
-    public class Item
-    {
-        [Key]
-        public int ItemKey { get; set; }
-
-        [ForeignKey("CertExam")]
-        public int FullId { get; set; } // Foreign Key pointing to CertExam.FullId
-
-        public int ExamId { get; set; } 
-        public int Number { get; set; }
-
-    }
+  
 
     public class CertExam
     {
