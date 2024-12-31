@@ -37,7 +37,6 @@ namespace CertStore.Models
         public int CertExamId { get; set; }
 
         public int FullId { get; set; }
-        public int CategoryId { get; set; }
 
         public string TestTitle { get; set; } = string.Empty;
         public string TestDescription { get; set; } = string.Empty;

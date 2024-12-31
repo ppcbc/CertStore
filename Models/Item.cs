@@ -12,7 +12,7 @@ namespace CertStore.Models
         [ForeignKey("CertExam")]
         public int CertExamId { get; set; } // Foreign Key to CertExam
 
-        public int ExamId { get; set; }
+        public int CategoryId { get; set; }
         public int Number { get; set; }
 
         [JsonIgnore] // Prevent serialization and validation
