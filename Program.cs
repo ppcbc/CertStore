@@ -40,6 +40,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateLifetime = false,
         ValidateIssuerSigningKey = true,
         ValidIssuer = "CertificationStore",
+        RequireExpirationTime = false,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
     };
 });

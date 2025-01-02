@@ -28,7 +28,7 @@ public class UserDetail
     public DateTime DateOfBirth { get; set; }
 
 
-    public int PhotoIdType { get; set; }
+    public string PhotoIdType { get; set; }
 
     public string PhotoIdNumber { get; set; } = string.Empty;
 
