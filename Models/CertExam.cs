@@ -9,7 +9,7 @@
 //        public int ExamId { get; set; }
 //        public int Number { get; set; }
 //    }
-    
+
 //    public class CertExam
 //    {
 //        [Key]
@@ -25,11 +25,10 @@
 //}
 
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CertStore.Models
 {
-  
+
 
     public class CertExam
     {

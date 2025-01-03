@@ -1,4 +1,4 @@
-using CertStore.Data;
+﻿using CertStore.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 byte[] secretBytes = new byte[64];
-using(var random = RandomNumberGenerator.Create())
+using (var random = RandomNumberGenerator.Create())
 {
     random.GetBytes(secretBytes);
 }
@@ -20,10 +20,10 @@ string secretKey = Convert.ToBase64String(secretBytes);
 // Add services to the container.
 
 builder.Services.AddControllers();
-    //.AddJsonOptions(options =>
-    //{
-    //    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-    //});
+//.AddJsonOptions(options =>
+//{
+//    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+//});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

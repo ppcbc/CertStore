@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using CertStore.Data;
+﻿using CertStore.Data;
 using CertStore.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CertStore.Controllers
 {
@@ -84,23 +84,23 @@ namespace CertStore.Controllers
         }
 
         // POST: api/CertExams
-     [HttpPost]
-public async Task<ActionResult<CertExam>> PostCertExam(CertExam certExam)
-{
-    // Add the CertExam
-    _context.CertExams.Add(certExam);
-    await _context.SaveChangesAsync();
+        [HttpPost]
+        public async Task<ActionResult<CertExam>> PostCertExam(CertExam certExam)
+        {
+            // Add the CertExam
+            _context.CertExams.Add(certExam);
+            await _context.SaveChangesAsync();
 
-    // Set CertExamId for each ExamQuestion
-    foreach (var question in certExam.ExamQuestions)
-    {
-        question.CertExamId = certExam.CertExamId;
-    }
+            // Set CertExamId for each ExamQuestion
+            foreach (var question in certExam.ExamQuestions)
+            {
+                question.CertExamId = certExam.CertExamId;
+            }
 
-    await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-    return CreatedAtAction(nameof(GetCertExam), new { id = certExam.CertExamId }, certExam);
-}
+            return CreatedAtAction(nameof(GetCertExam), new { id = certExam.CertExamId }, certExam);
+        }
 
         // DELETE: api/CertExams/5
         [HttpDelete("{id}")]

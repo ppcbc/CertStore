@@ -1,6 +1,5 @@
 ﻿using CertStore.Data;
 using CertStore.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,47 +7,47 @@ namespace CertStore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExamsController : ControllerBase
+    public class UserStafsController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public ExamsController(AppDbContext context)
+        public UserStafsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Exams
+        // GET: api/UserStafs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Exam>>> GetExams()
+        public async Task<ActionResult<IEnumerable<UserStaf>>> GetUserStafs()
         {
-            return await _context.Exams.ToListAsync();
+            return await _context.UserStafs.ToListAsync();
         }
 
-        // GET: api/Exams/5
+        // GET: api/UserStafs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Exam>> GetExam(int id)
+        public async Task<ActionResult<UserStaf>> GetUserStaf(int id)
         {
-            var exam = await _context.Exams.FindAsync(id);
+            var userStaf = await _context.UserStafs.FindAsync(id);
 
-            if (exam == null)
+            if (userStaf == null)
             {
                 return NotFound();
             }
 
-            return exam;
+            return userStaf;
         }
 
-        // PUT: api/Exams/5
+        // PUT: api/UserStafs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutExam(int id, Exam exam)
+        public async Task<IActionResult> PutUserStaf(int id, UserStaf userStaf)
         {
-            if (id != exam.ExamId)
+            if (id != userStaf.UserStafId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(exam).State = EntityState.Modified;
+            _context.Entry(userStaf).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +55,7 @@ namespace CertStore.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ExamExists(id))
+                if (!UserStafExists(id))
                 {
                     return NotFound();
                 }
@@ -69,39 +68,36 @@ namespace CertStore.Controllers
             return NoContent();
         }
 
-        // POST: api/Exams
+        // POST: api/UserStafs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<Exam>> PostExam(Exam exam)
+        public async Task<ActionResult<UserStaf>> PostUserStaf(UserStaf userStaf)
         {
-            _context.Exams.Add(exam);
+            _context.UserStafs.Add(userStaf);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetExam", new { id = exam.ExamId }, exam);
+            return CreatedAtAction("GetUserStaf", new { id = userStaf.UserStafId }, userStaf);
         }
 
-
-
-        // DELETE: api/Exams/5
+        // DELETE: api/UserStafs/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteExam(int id)
+        public async Task<IActionResult> DeleteUserStaf(int id)
         {
-            var exam = await _context.Exams.FindAsync(id);
-            if (exam == null)
+            var userStaf = await _context.UserStafs.FindAsync(id);
+            if (userStaf == null)
             {
                 return NotFound();
             }
 
-            _context.Exams.Remove(exam);
+            _context.UserStafs.Remove(userStaf);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ExamExists(int id)
+        private bool UserStafExists(int id)
         {
-            return _context.Exams.Any(e => e.ExamId == id);
+            return _context.UserStafs.Any(e => e.UserStafId == id);
         }
     }
 }

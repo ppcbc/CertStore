@@ -16,8 +16,10 @@ namespace CertStore.Data
         public DbSet<ExamCategory> ExamCategories { get; set; }
         public DbSet<FullCategory> FullCategories { get; set; }
         public DbSet<CertExam> CertExams { get; set; }
-        public DbSet<UserDetail> UserDetails{ get; set; }
+        public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<UserStaf> UserStafs { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
