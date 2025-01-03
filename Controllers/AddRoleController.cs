@@ -53,6 +53,34 @@ namespace CertStore.Controllers
 
             return BadRequest(result.Errors);
         }
+        [HttpDelete("delete-user/{email}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteUser(string email)
+        {
+            // Validate email
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest(new { message = "Email cannot be empty." });
+            }
+
+            // Find the user by email
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found." });
+            }
+
+            // Attempt to delete the user
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return Ok(new { message = $"User with email '{email}' deleted successfully." });
+            }
+
+            // Handle errors
+            return BadRequest(new { errors = result.Errors });
+        }
+
         [HttpPost("remove-user-role")]
         public async Task<IActionResult> RemoveUserRole([FromBody] UserRole model)
         {
