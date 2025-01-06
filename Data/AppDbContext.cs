@@ -19,6 +19,7 @@ namespace CertStore.Data
         public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<UserStaf> UserStafs { get; set; }
+        public DbSet<Certificate> Certificates { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -53,6 +53,21 @@ namespace CertStore.Controllers
 
             return BadRequest(result.Errors);
         }
+        [Authorize]
+        [HttpGet("get-my-email")]
+        public IActionResult GetMyEmail()
+        {
+            // Retrieve the user's email from the ClaimsPrincipal
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return NotFound(new { message = "Email not found in user claims." });
+            }
+
+            return Ok(new { Email = userEmail });
+        }
+
         [HttpDelete("delete-user/{email}")]
         [Authorize]
         public async Task<IActionResult> DeleteUser(string email)
