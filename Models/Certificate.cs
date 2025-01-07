@@ -23,6 +23,7 @@ namespace CertStore.Models
         public string FinishTitle { get; set; }
         public bool Passed { get; set; }
         public bool Marked { get; set; }
+        public bool Reject { get; set; }
         public string TestDescription { get; set; }
 
     }
