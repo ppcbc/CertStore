@@ -1,5 +1,6 @@
 ﻿using CertStore.Data;
 using CertStore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ namespace CertStore.Controllers
         }
 
         // GET: api/CertExams
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CertExam>>> GetCertExams()
         {
@@ -26,6 +28,7 @@ namespace CertStore.Controllers
         }
 
         // GET: api/CertExams/5
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<CertExam>> GetCertExam(int id)
         {
@@ -42,6 +45,7 @@ namespace CertStore.Controllers
         }
 
         // PUT: api/CertExams/5
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCertExam(int id, CertExam certExam)
         {
@@ -84,6 +88,7 @@ namespace CertStore.Controllers
         }
 
         // POST: api/CertExams
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<CertExam>> PostCertExam(CertExam certExam)
         {
@@ -103,6 +108,7 @@ namespace CertStore.Controllers
         }
 
         // DELETE: api/CertExams/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCertExam(int id)
         {
