@@ -40,7 +40,7 @@ namespace CertStore.Controllers
 
         // PUT: api/Exams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExam(int id, Exam exam)
         {
@@ -72,7 +72,7 @@ namespace CertStore.Controllers
 
         // POST: api/Exams
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Exam>> PostExam(Exam exam)
         {
@@ -85,7 +85,7 @@ namespace CertStore.Controllers
 
 
         // DELETE: api/Exams/5
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExam(int id)
         {

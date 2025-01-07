@@ -23,7 +23,7 @@ namespace CertStore.Controllers
         }
 
         // GET: api/Certificates
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Certificate>>> GetCertificates()
         {
@@ -31,7 +31,7 @@ namespace CertStore.Controllers
         }
 
         // GET: api/Certificates/5
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Certificate>> GetCertificate(int id)
         {
@@ -47,7 +47,7 @@ namespace CertStore.Controllers
 
         // PUT: api/Certificates/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize]
+        //[Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCertificate(int id, Certificate certificate)
         {
@@ -79,7 +79,7 @@ namespace CertStore.Controllers
 
         // POST: api/Certificates
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public async Task<ActionResult<Certificate>> PostCertificate(Certificate certificate)
         {
@@ -90,7 +90,7 @@ namespace CertStore.Controllers
         }
 
         // DELETE: api/Certificates/5
-        [Authorize]
+        //[Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCertificate(int id)
         {

@@ -16,14 +16,14 @@ namespace CertStore.Controllers
         {
             _context = context;
         }
-        [Authorize]
+        //[Authorize]
         // GET: api/ExamCategories
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ExamCategory>>> GetExamCategories()
         {
             return await _context.ExamCategories.ToListAsync();
         }
-        [Authorize]
+        //[Authorize]
         // GET: api/ExamCategories/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ExamCategory>> GetExamCategory(int id)
@@ -38,7 +38,7 @@ namespace CertStore.Controllers
             return examCategory;
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         // PUT: api/ExamCategories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -72,7 +72,7 @@ namespace CertStore.Controllers
 
         // POST: api/ExamCategories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<ExamCategory>> PostExamCategory(ExamCategory examCategory)
         {
@@ -83,7 +83,7 @@ namespace CertStore.Controllers
         }
 
         // DELETE: api/ExamCategories/5
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExamCategory(int id)
         {
