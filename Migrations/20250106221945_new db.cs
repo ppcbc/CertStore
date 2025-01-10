@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CertStore.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class newdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,18 +51,149 @@ namespace CertStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tests",
+                name: "CertExams",
                 columns: table => new
                 {
-                    TestId = table.Column<int>(type: "int", nullable: false)
+                    CertExamId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FullId = table.Column<int>(type: "int", nullable: false),
                     TestTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TestDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TestAuthor = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tests", x => x.TestId);
+                    table.PrimaryKey("PK_CertExams", x => x.CertExamId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Certificates",
+                columns: table => new
+                {
+                    CertificateKey = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    userId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Score = table.Column<int>(type: "int", nullable: false),
+                    TotalQuestions = table.Column<int>(type: "int", nullable: false),
+                    SuccessRate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TotalScore = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CandidateNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TestCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReportDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FinishTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Passed = table.Column<bool>(type: "bit", nullable: false),
+                    Marked = table.Column<bool>(type: "bit", nullable: false),
+                    TestDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Certificates", x => x.CertificateKey);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExamCategories",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullId = table.Column<int>(type: "int", nullable: false),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExamCategories", x => x.CategoryId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Exams",
+                columns: table => new
+                {
+                    ExamId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    QuestionText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    QuestionPhotoLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Option1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsCorrect1 = table.Column<bool>(type: "bit", nullable: false),
+                    Option2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsCorrect2 = table.Column<bool>(type: "bit", nullable: false),
+                    Option3 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsCorrect3 = table.Column<bool>(type: "bit", nullable: false),
+                    Option4 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsCorrect4 = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exams", x => x.ExamId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FullCategories",
+                columns: table => new
+                {
+                    FullId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FullCategories", x => x.FullId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserDetails",
+                columns: table => new
+                {
+                    DetailId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NativeLanguage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PhotoIdType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhotoIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhotoIdIssueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AddressLine2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CountryOfResidence = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StateProvince = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LandlinePhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MobileNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserDetails", x => x.DetailId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserStafs",
+                columns: table => new
+                {
+                    UserStafId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CertExamId = table.Column<int>(type: "int", nullable: false),
+                    DateOfSelectCertExam = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateOfBuyCertExam = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HasBought = table.Column<bool>(type: "bit", nullable: false),
+                    UserDetailsId = table.Column<int>(type: "int", nullable: false),
+                    Redeem = table.Column<bool>(type: "bit", nullable: false),
+                    DateOfSendCertExam = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserStafs", x => x.UserStafId);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,6 +302,27 @@ namespace CertStore.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Items",
+                columns: table => new
+                {
+                    ItemKey = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CertExamId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Items", x => x.ItemKey);
+                    table.ForeignKey(
+                        name: "FK_Items_CertExams_CertExamId",
+                        column: x => x.CertExamId,
+                        principalTable: "CertExams",
+                        principalColumn: "CertExamId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -209,6 +361,11 @@ namespace CertStore.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_CertExamId",
+                table: "Items",
+                column: "CertExamId");
         }
 
         /// <inheritdoc />
@@ -230,13 +387,34 @@ namespace CertStore.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Tests");
+                name: "Certificates");
+
+            migrationBuilder.DropTable(
+                name: "ExamCategories");
+
+            migrationBuilder.DropTable(
+                name: "Exams");
+
+            migrationBuilder.DropTable(
+                name: "FullCategories");
+
+            migrationBuilder.DropTable(
+                name: "Items");
+
+            migrationBuilder.DropTable(
+                name: "UserDetails");
+
+            migrationBuilder.DropTable(
+                name: "UserStafs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "CertExams");
         }
     }
 }

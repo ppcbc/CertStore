@@ -7,55 +7,56 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CertStore.Data;
 using CertStore.Models;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CertStore.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
-    public class TestsController : ControllerBase
+    public class CertificatesController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public TestsController(AppDbContext context)
+        public CertificatesController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Tests
+        // GET: api/Certificates
+        //[Authorize]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tests>>> GetTests()
+        public async Task<ActionResult<IEnumerable<Certificate>>> GetCertificates()
         {
-            return await _context.Tests.ToListAsync();
+            return await _context.Certificates.ToListAsync();
         }
 
-        // GET: api/Tests/5
+        // GET: api/Certificates/5
+        //[Authorize]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Tests>> GetTests(int id)
+        public async Task<ActionResult<Certificate>> GetCertificate(int id)
         {
-            var tests = await _context.Tests.FindAsync(id);
+            var certificate = await _context.Certificates.FindAsync(id);
 
-            if (tests == null)
+            if (certificate == null)
             {
                 return NotFound();
             }
 
-            return tests;
+            return certificate;
         }
 
-        // PUT: api/Tests/5
+        // PUT: api/Certificates/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[Authorize]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTests(int id, Tests tests)
+        public async Task<IActionResult> PutCertificate(int id, Certificate certificate)
         {
-            if (id != tests.TestId)
+            if (id != certificate.CertificateKey)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tests).State = EntityState.Modified;
+            _context.Entry(certificate).State = EntityState.Modified;
 
             try
             {
@@ -63,7 +64,7 @@ namespace CertStore.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TestsExists(id))
+                if (!CertificateExists(id))
                 {
                     return NotFound();
                 }
@@ -76,36 +77,36 @@ namespace CertStore.Controllers
             return NoContent();
         }
 
-        // POST: api/Tests
+        // POST: api/Certificates
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Tests>> PostTests(Tests tests)
+        public async Task<ActionResult<Certificate>> PostCertificate(Certificate certificate)
         {
-            _context.Tests.Add(tests);
+            _context.Certificates.Add(certificate);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTests", new { id = tests.TestId }, tests);
+            return CreatedAtAction("GetCertificate", new { id = certificate.CertificateKey }, certificate);
         }
 
-        // DELETE: api/Tests/5
+        // DELETE: api/Certificates/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTests(int id)
+        public async Task<IActionResult> DeleteCertificate(int id)
         {
-            var tests = await _context.Tests.FindAsync(id);
-            if (tests == null)
+            var certificate = await _context.Certificates.FindAsync(id);
+            if (certificate == null)
             {
                 return NotFound();
             }
 
-            _context.Tests.Remove(tests);
+            _context.Certificates.Remove(certificate);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TestsExists(int id)
+        private bool CertificateExists(int id)
         {
-            return _context.Tests.Any(e => e.TestId == id);
+            return _context.Certificates.Any(e => e.CertificateKey == id);
         }
     }
 }
