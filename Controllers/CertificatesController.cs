@@ -79,7 +79,6 @@ namespace CertStore.Controllers
 
         // POST: api/Certificates
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[Authorize]
         [HttpPost]
         public async Task<ActionResult<Certificate>> PostCertificate(Certificate certificate)
         {
@@ -90,7 +89,6 @@ namespace CertStore.Controllers
         }
 
         // DELETE: api/Certificates/5
-        //[Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCertificate(int id)
         {
